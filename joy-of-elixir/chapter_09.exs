@@ -1,7 +1,10 @@
 # Replacing all "e"s in each word of a list using Enum.map/2 and String.replace/3
 words = ["a", "very", "fine", "collection", "of", "words", "enunciated"]
 
-words_changed = Enum.map(words, fn (word) -> String.replace(word, "e", "o") end)
+# words_changed = Enum.map(words, fn (word) -> String.replace(word, "e", "o") end)
+
+# Improved version with less code, using the capture operator
+words_changed = Enum.map(words, &String.replace(&1, "e", "a"))
 Enum.each(words_changed, &IO.puts/1)
 
 
