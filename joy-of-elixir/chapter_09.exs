@@ -1,14 +1,14 @@
-# Replacing all "e"s in each word of a list using Enum.map/2 and String.replace/3
+# Replacing all "e"s in the words by "i"s using Enum.map/2 and String.replace/3
 words = ["a", "very", "fine", "collection", "of", "words", "enunciated"]
+words = Enum.map(words, &(String.replace(&1, "e", "i")))
 
-# words_changed = Enum.map(words, fn (word) -> String.replace(word, "e", "o") end)
+Enum.each(words, &IO.puts/1)
 
-# Improved version with less code, using the capture operator
-words_changed = Enum.map(words, &String.replace(&1, "e", "a"))
-Enum.each(words_changed, &IO.puts/1)
+########################################
 
-
-# Using Enum.reduce/2 to multiply all numbers from a list
+# Multiplying all numbers together with Enum.reduce/2
 nums = [5, 12, 9, 24, 9, 18]
-mult = Enum.reduce(nums, fn (num, acc) -> num * acc end)
-IO.puts(mult)
+nums_mult = Enum.reduce(nums, &(&1 * &2))
+
+IO.puts("")
+IO.puts(nums_mult)
