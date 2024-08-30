@@ -9,10 +9,10 @@
 
 fizzbuzz = fn (num) ->
   cond do
-    (rem(num, 3)) == 0 and (rem(num, 5) == 0) -> IO.puts("fizzbuzz")
+    rem(num, (3 * 5)) == 0 -> IO.puts("fizzbuzz")
     rem(num, 3) == 0 -> IO.puts("fizz")
     rem(num, 5) == 0 -> IO.puts("buzz")
-    true -> IO.puts(num)
+    true -> IO.puts(num) # Is this how we do a "catch-all" clause in a cond? hmmm…
   end
 end
 
