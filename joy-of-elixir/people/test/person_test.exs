@@ -25,4 +25,15 @@ defmodule People.PersonTest do
 
     assert madonna |> Person.full_name() === "Madonna"
   end
+
+  test "age/1" do
+    vini = %Person{
+      birthday: ~D[1996-07-11]
+    }
+
+    days = Date.diff(Date.utc_today(), vini.birthday)
+    years = days / 365.25
+
+    assert vini |> Person.age() === years
+  end
 end
