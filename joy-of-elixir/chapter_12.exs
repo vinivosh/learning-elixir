@@ -16,6 +16,4 @@ fizzbuzz = fn (num) ->
   end
 end
 
-# I don't know how to do a "for loop" yet lol…
-
 Enum.each(1..50, &(fizzbuzz.(&1)))
