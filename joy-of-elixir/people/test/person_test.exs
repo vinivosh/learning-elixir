@@ -1,6 +1,7 @@
 defmodule People.PersonTest do
   use ExUnit.Case
   alias People.Person
+  doctest People.Person
 
   test "full_name/1" do
     person = %Person{
