@@ -53,4 +53,9 @@ defmodule Cards do
     bin = :erlang.term_to_binary(deck)
     File.write(filename, bin)
   end
+
+  def read_from_file(filename) do
+    {_, bin} = File.read(filename)
+    :erlang.binary_to_term(bin)
+  end
 end
