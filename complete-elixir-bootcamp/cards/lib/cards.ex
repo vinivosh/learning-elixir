@@ -22,7 +22,7 @@ defmodule Cards do
       end
     end
 
-    cards
+    List.flatten(cards)
   end
 
   def shuffle(deck) do
