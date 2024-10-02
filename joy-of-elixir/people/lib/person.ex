@@ -19,16 +19,16 @@ defmodule People.Person do
   "Madonna"
   """
   def full_name(%__MODULE__{
-    first_name: first_name,
-    last_name: nil
-  }) do
+        first_name: first_name,
+        last_name: nil
+      }) do
     "#{first_name}"
   end
 
   def full_name(%__MODULE__{
-    first_name: first_name,
-    last_name: last_name
-  }) do
+        first_name: first_name,
+        last_name: last_name
+      }) do
     "#{first_name} #{last_name}"
   end
 

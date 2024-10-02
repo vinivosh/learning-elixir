@@ -1,6 +1,6 @@
 # Replacing all "e"s in the words by "i"s using Enum.map/2 and String.replace/3
 words = ["a", "very", "fine", "collection", "of", "words", "enunciated"]
-words = Enum.map(words, &(String.replace(&1, "e", "i")))
+words = Enum.map(words, &String.replace(&1, "e", "i"))
 
 Enum.each(words, &IO.puts/1)
 

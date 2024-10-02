@@ -10,7 +10,8 @@ seconds * 30 / 60 / 60
 
 # Using variables inside strings
 name = "Vini"
-"sup #{name} 🤓" # <- Huh, elixir deals with unicode shit like emojis just fine. Cool!
+"sup #{name} 🤓"
+# Huh, elixir deals with unicode shit like emojis just fine. Cool!
 
 # Error demo
 5 / "four"

@@ -7,13 +7,14 @@
 # - "fizzbuzz" if it's divisible by 3 and 5 at the same time
 # - The integer itself it none of the above
 
-fizzbuzz = fn (num) ->
+fizzbuzz = fn num ->
   cond do
-    rem(num, (3 * 5)) == 0 -> IO.puts("fizzbuzz")
+    rem(num, 3 * 5) == 0 -> IO.puts("fizzbuzz")
     rem(num, 3) == 0 -> IO.puts("fizz")
     rem(num, 5) == 0 -> IO.puts("buzz")
-    true -> IO.puts(num) # Is this how we do a "catch-all" clause in a cond? hmmm…
+    # Is this how we do a "catch-all" clause in a cond? hmmm… Looks like it is!
+    true -> IO.puts(num)
   end
 end
 
-Enum.each(1..50, &(fizzbuzz.(&1)))
+Enum.each(1..50, &fizzbuzz.(&1))

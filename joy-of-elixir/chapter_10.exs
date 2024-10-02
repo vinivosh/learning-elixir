@@ -7,7 +7,7 @@
 
 # Bonus: removing repetition by using a new function
 
-get_input = fn (prompt) ->
+get_input = fn prompt ->
   IO.gets(prompt) |> String.trim()
 end
 
@@ -15,4 +15,6 @@ person = get_input.("Write the name for a person: ")
 object = get_input.("Write the name for an object: ")
 place = get_input.("Write the name for a place: ")
 
-IO.puts("Silly little #{person} started to look for their #{object} in #{place}. Unbeknownst to them, it was not there at all…")
+IO.puts(
+  "Silly little #{person} started to look for their #{object} in #{place}. Unbeknownst to them, it was not there at all…"
+)
