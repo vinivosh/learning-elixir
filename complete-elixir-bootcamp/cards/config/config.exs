@@ -11,20 +11,17 @@ config :cards,
 
 # import_config "#{config_env()}.exs"
 
-# list = 1..500 |> Enum.to_list
-user = %{name: "Alice", id: "i86a9sdla212", hashed_password: "$2y$10$DyM42fphQJmYa5tCb3wQ2u0lRuwehAU4LbLr7p2DJX8Jk9SWguVbG"}
-user_inspected = inspect(user)
-IO.puts("`user` with default inspect:\n#{user_inspected}\n")
+# user = %{name: "Alice", id: "i86a9sdla212", hashed_password: "$2y$10$DyM42fphQJmYa5tCb3wQ2u0lRuwehAU4LbLr7p2DJX8Jk9SWguVbG"}
+list = 1..500 |> Enum.to_list
+var_inspected = inspect(list)
+IO.puts("`var_inspected` with default inspect:\n#{var_inspected}\n")
 
 old_inspect_fun = Inspect.Opts.default_inspect_fun()
 
 Inspect.Opts.default_inspect_fun(fn
-  %{hashed_password: _} = map, opts ->
-    old_inspect_fun.(%{map | hashed_password: "[SECRET]"}, opts)
-
-  value, opts ->
-    old_inspect_fun.(value, opts)
+  value, _ ->
+    old_inspect_fun.(value, Inspect.Opts.new(%{limit: :infinity}))
 end)
 
-user_inspected = inspect(user)
-IO.puts("`user` with new inspect definition:\n#{user_inspected}\n")
+var_inspected = inspect(list)
+IO.puts("`var_inspected` with new inspect definition:\n#{var_inspected}\n")
