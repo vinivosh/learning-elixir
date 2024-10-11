@@ -1,16 +1,15 @@
 defmodule Cards do
   @moduledoc """
-  Documentation for `Cards`.
+  Provides functions for creating and handling a standard deck of playing cards.
   """
 
   @doc """
-  Hello world.
+    Creates a standard deck with 52 cards.
 
-  ## Examples
-
-      iex> Cards.hello()
-      :world
-
+    The cards always come in the same order (`["Ace of Spades", "Ace of Clubs",
+    "Ace of Hearts", "Ace of Diamonds", "Two of Spades", ... , "Queen of
+    Diamonds", "King of Spades", "King of Clubs", "King of Hearts",
+    "King of Diamonds"]`).
   """
   def create_deck do
     values = [
@@ -44,6 +43,18 @@ defmodule Cards do
     Enum.member?(deck, card)
   end
 
+  @doc """
+    Divides a `deck` into a hand of `hand_size` many cards and the remainder of
+    the deck, returned as a tuple.
+
+  ## Examples
+
+      iex> deck = Cards.create_deck()
+      iex> {hand, deck} = Cards.deal(deck, 2)
+      iex> hand
+      ["Ace of Spades", "Ace of Clubs"]
+
+  """
   def deal(deck, hand_size) do
     {hand, deck_remainder} = Enum.split(deck, hand_size)
   end
