@@ -12,23 +12,35 @@ config :cards,
 
 # import_config "#{config_env()}.exs"
 
-# user = %{name: "Alice", id: "i86a9sdla212", hashed_password: "$2y$10$DyM42fphQJmYa5tCb3wQ2u0lRuwehAU4LbLr7p2DJX8Jk9SWguVbG"}
-# list = 1..500 |> Enum.to_list
-# list = [7, 78, 91, 92, 93, 94, 95, 96, 97, 120]
-# var_inspected = inspect(list)
-# IO.puts("'var_inspected' with default inspect:\n#{var_inspected}\n")
-
+# Redefining the inspect/2 function to use new global defaults:
+# limit: :infinity
+# printable_limit: :infinity
 old_inspect_fun = Inspect.Opts.default_inspect_fun()
 
 Inspect.Opts.default_inspect_fun(fn
-  value, opts ->
+  # "50" and "4096" are the default values for the Inspect.Opts struct, for the
+  # "limit:" key (used for enumerables) and the "printable_limit:" key (used
+  # for strings), respectively.
+  #
+  # Refer to the documentation for more info:
+  # https://hexdocs.pm/elixir/1.17.2/Inspect.Opts.html
+
+  value, %Inspect.Opts{limit: limit, printable_limit: printable_limit} = opts
+  when limit == 50 and
+         printable_limit == 4096 ->
     old_inspect_fun.(value, %{
       opts
       | limit: :infinity,
         printable_limit: :infinity,
         charlists: :as_lists
     })
-end)
 
-# var_inspected = inspect(list)
-# IO.puts("'var_inspected' with new inspect definition:\n#{var_inspected}\n")
+  value, %Inspect.Opts{limit: limit} = opts when limit == 50 ->
+    old_inspect_fun.(value, %{opts | limit: :infinity, charlists: :as_lists})
+
+  value, %Inspect.Opts{printable_limit: printable_limit} = opts when printable_limit == 4096 ->
+    old_inspect_fun.(value, %{opts | printable_limit: :infinity, charlists: :as_lists})
+
+  value, %Inspect.Opts{} = opts ->
+    old_inspect_fun.(value, opts)
+end)
