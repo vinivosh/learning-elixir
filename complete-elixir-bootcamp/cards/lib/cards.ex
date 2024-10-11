@@ -45,8 +45,7 @@ defmodule Cards do
   end
 
   def deal(deck, hand_size) do
-    {hand, _} = Enum.split(deck, hand_size)
-    hand
+    {hand, deck_remainder} = Enum.split(deck, hand_size)
   end
 
   def save_to_file(filename, deck) do
