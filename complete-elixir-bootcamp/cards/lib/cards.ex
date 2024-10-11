@@ -1,6 +1,6 @@
 defmodule Cards do
   @moduledoc """
-  Provides functions for creating and handling a standard deck of playing cards.
+    Provides functions for creating and handling a standard deck of playing cards.
   """
 
   @doc """
@@ -39,6 +39,18 @@ defmodule Cards do
     Enum.shuffle(deck)
   end
 
+  @doc """
+    Checks if a certain card is a part of a deck.
+
+  ## Examples
+
+      iex> deck = Cards.create_deck()
+      iex> Cards.contains?(deck, "The World")
+      false
+      iex> Cards.contains?(deck, "Jack of Hearts")
+      true
+
+  """
   def contains?(deck, card) do
     Enum.member?(deck, card)
   end
@@ -56,7 +68,7 @@ defmodule Cards do
 
   """
   def deal(deck, hand_size) do
-    {hand, deck_remainder} = Enum.split(deck, hand_size)
+    {_hand, _deck_remainder} = Enum.split(deck, hand_size)
   end
 
   def save_to_file(filename, deck) do
