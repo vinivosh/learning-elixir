@@ -28,7 +28,10 @@ defmodule Identicon do
 
   ## Examples
       iex> Identicon.hash_str("capivara@proton.com")
-      [143, 169, 83, 138, 93, 31, 223, 180, 121, 7, 105, 167, 149, 159, 118, 147]
+      %Identicon.Image{
+        hex_values: [143, 169, 83, 138, 93, 31, 223, 180, 121, 7, 105, 167, 149,
+        159, 118, 147]
+      }
   """
   def hash_str(input) do
     hex_values =
