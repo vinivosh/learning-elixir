@@ -9,8 +9,8 @@ defmodule Identicon do
 
   ## Examples
 
-      iex> Identicon.generate("capivara@gmail.com")
-      "./capivara-at-gmail-dot-com.png"
+      iex> Identicon.generate("capivara@proton.com")
+      "./capivara-at-proton-dot-com.png"
 
   """
   def generate(input) do
@@ -24,10 +24,11 @@ defmodule Identicon do
   Computes the MD5 hash of the `input` string, returning it as a list of numbers
 
   ## Examples
-      iex> Identicon.hash_str("capivara@gmail.com")
-      []
+      iex> Identicon.hash_str("capivara@proton.com")
+      [143, 169, 83, 138, 93, 31, 223, 180, 121, 7, 105, 167, 149, 159, 118, 147]
   """
   def hash_str(input) do
-    input
+    :crypto.hash(:md5, input)
+    |> :binary.bin_to_list()
   end
 end
