@@ -18,6 +18,9 @@ defmodule Identicon do
     # |> other_func_1
     # |> other_func_2
     # |> other_func_3
+
+    # ! Placeholder!
+    "./capivara-at-proton-dot-com.png"
   end
 
   @doc """
