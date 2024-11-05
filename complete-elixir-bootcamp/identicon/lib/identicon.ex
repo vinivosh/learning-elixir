@@ -31,7 +31,10 @@ defmodule Identicon do
       [143, 169, 83, 138, 93, 31, 223, 180, 121, 7, 105, 167, 149, 159, 118, 147]
   """
   def hash_str(input) do
-    :crypto.hash(:md5, input)
-    |> :binary.bin_to_list()
+    hex_values =
+      :crypto.hash(:md5, input)
+      |> :binary.bin_to_list()
+
+    %Identicon.Image{hex_values: hex_values}
   end
 end
