@@ -57,4 +57,27 @@ defmodule Identicon do
   def pick_color(%Identicon.Image{hex_values: [r, g, b | _tail]} = img) do
     %Identicon.Image{img | color: {r, g, b}}
   end
+
+  @doc """
+    Given an Identicon.Image struct, returns a representation of the
+    `hex_values` property organized in a 3 by 5 grid --- a matrix, i.e. a
+    two-dimensional array.
+
+    Note that leftover elements (those after the 15th one) are discarded from
+    the grid!
+
+    ## Examples
+        iex> img = Identicon.hash_str("capivara@proton.com")
+        iex> Identicon.build_grid(img)
+        [
+          [143, 169, 83],
+          [138, 93, 31],
+          [223, 180, 121],
+          [7, 105, 167],
+          [149, 159, 118]
+        ]
+  """
+  def build_grid(%Identicon.Image{hex_values: hex}) do
+    Enum.chunk_every(hex, 3, 3, :discard)
+  end
 end
