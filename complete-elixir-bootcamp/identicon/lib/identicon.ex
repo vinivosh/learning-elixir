@@ -5,7 +5,7 @@ defmodule Identicon do
 
   @doc """
   Given an `input` string, generates an unique **Identicon** image and saves it
-  to a file
+  to a file.
 
   ## Examples
 
@@ -24,7 +24,7 @@ defmodule Identicon do
   end
 
   @doc """
-  Computes the MD5 hash of the `input` string, returning it as a list of numbers
+  Computes the MD5 hash of the `input` string, returning it as a list of numbers.
 
   ## Examples
       iex> Identicon.hash_str("capivara@proton.com")
@@ -39,5 +39,19 @@ defmodule Identicon do
       |> :binary.bin_to_list()
 
     %Identicon.Image{hex_values: hex_values}
+  end
+
+  @doc """
+  Given an Identicon.Image struct, picks an RGB color and returns it, as a list
+  with the three color values, ranging from 0 to 255.
+
+  ## Examples
+      iex> img = Identicon.hash_str("capivara@proton.com")
+      iex> Identicon.pick_color(img)
+      [143, 169, 83]
+  """
+  def pick_color(img) do
+    %Identicon.Image{hex_values: [r, g, b | _tail]} = img
+    [r, g, b]
   end
 end
