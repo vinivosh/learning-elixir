@@ -42,13 +42,17 @@ defmodule Identicon do
   end
 
   @doc """
-  Given an Identicon.Image struct, picks an RGB color and returns it, as a list
-  with the three color values, ranging from 0 to 255.
+  Given an Identicon.Image struct, returns a copy of it, but with the `color`
+  property set to a tuple with the three color values, ranging from 0 to 255.
 
   ## Examples
       iex> img = Identicon.hash_str("capivara@proton.com")
       iex> Identicon.pick_color(img)
-      [143, 169, 83]
+      %Identicon.Image{
+        hex_values: [143, 169, 83, 138, 93, 31, 223, 180,
+        121, 7, 105, 167, 149, 159, 118, 147],
+        color: {143, 169, 83}
+      }
   """
   def pick_color(%Identicon.Image{hex_values: [r, g, b | _tail]} = img) do
     %Identicon.Image{img | color: {r, g, b}}
