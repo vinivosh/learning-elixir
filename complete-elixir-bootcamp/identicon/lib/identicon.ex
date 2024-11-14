@@ -80,4 +80,15 @@ defmodule Identicon do
   def build_grid(%Identicon.Image{hex_values: hex}) do
     Enum.chunk_every(hex, 3, 3, :discard)
   end
+
+  @doc """
+    Given a list with three elements, will return a list of five elements that is the original list mirrored.
+
+    ## Examples
+        iex> Identicon.mirror_list([1, 2, 3])
+        [1, 2, 3, 2, 1]
+  """
+  def mirror_list([first, second | _tail] = list) do
+    list ++ [second, first]
+  end
 end
