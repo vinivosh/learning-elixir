@@ -60,8 +60,10 @@ defmodule Identicon do
 
   @doc """
     Given an Identicon.Image struct, returns a representation of the
-    `hex_values` property organized in a 3 by 5 grid --- a matrix, i.e. a
-    two-dimensional array.
+    `hex_values` property organized in a grid --- a matrix, i.e. a
+    two-dimensional array. This grid is made out of the first 15 elements from
+    the list, so a 3x5 grid initially, that then gets vertically mirrored to
+    become a 5x5 grid instead.
 
     Note that leftover elements (those after the 15th one) are discarded from
     the grid!
@@ -70,11 +72,11 @@ defmodule Identicon do
         iex> img = Identicon.hash_str("capivara@proton.com")
         iex> Identicon.build_grid(img)
         [
-          [143, 169, 83],
-          [138, 93, 31],
-          [223, 180, 121],
-          [7, 105, 167],
-          [149, 159, 118]
+          [143, 169, 83, 169, 143],
+          [138, 93, 31, 93, 138],
+          [223, 180, 121, 180, 223],
+          [7, 105, 167, 105, 7],
+          [149, 159, 118, 159, 149]
         ]
   """
   def build_grid(%Identicon.Image{hex_values: hex}) do
