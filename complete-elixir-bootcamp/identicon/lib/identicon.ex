@@ -95,6 +95,16 @@ defmodule Identicon do
     list ++ [second, first]
   end
 
+  @doc """
+    Given an Identicon.Image struct, returns an updated struct where the `grid`
+    key is updated to contain only the elements `{v, i}` where `v` is even.
+
+    ## Examples
+        iex> img = Identicon.hash_str("capivara@proton.com") |> Identicon.build_grid
+        iex> %{grid: grid} = Identicon.filter_odd_from_grid(img)
+        iex> grid
+        [{138, 5}, {138, 9}, {180, 11}, {180, 13}, {118, 22}]
+  """
   def filter_odd_from_grid(%Identicon.Image{grid: grid} = img) do
     grid_filtered =
       Enum.filter(grid, fn {num, _index} ->
