@@ -59,25 +59,20 @@ defmodule Identicon do
   end
 
   @doc """
-    Given an Identicon.Image struct, returns a representation of the
-    `hex_values` property organized in a grid --- a matrix, i.e. a
-    two-dimensional array. This grid is made out of the first 15 elements from
-    the list, so a 3x5 grid initially, that then gets vertically mirrored to
-    become a 5x5 grid instead.
+    Given an Identicon.Image struct, returns an updated struct where the `grid`
+    key contains a representation of the value in the `hex_values` key organized
+    in a grid --- a matrix, i.e. a two-dimensional array. This grid is made out
+    of the first 15 elements from the list, so a 3x5 grid initially, that then
+    gets vertically mirrored to become a 5x5 grid instead.
 
     Note that leftover elements (those after the 15th one) are discarded from
     the grid!
 
     ## Examples
         iex> img = Identicon.hash_str("capivara@proton.com")
-        iex> Identicon.build_grid(img)
-        [
-          [143, 169, 83, 169, 143],
-          [138, 93, 31, 93, 138],
-          [223, 180, 121, 180, 223],
-          [7, 105, 167, 105, 7],
-          [149, 159, 118, 159, 149]
-        ]
+        iex> %{grid: grid} = Identicon.build_grid(img)
+        iex> grid
+        [{143, 0}, {169, 1}, {83, 2}, {169, 3}, {143, 4}, {138, 5}, {93, 6}, {31, 7}, {93, 8}, {138, 9}, {223, 10}, {180, 11}, {121, 12}, {180, 13}, {223, 14}, {7, 15}, {105, 16}, {167, 17}, {105, 18}, {7, 19}, {149, 20}, {159, 21}, {118, 22}, {159, 23}, {149, 24}]
   """
   def build_grid(%Identicon.Image{hex_values: hex} = img) do
     grid =
