@@ -94,4 +94,13 @@ defmodule Identicon do
   def mirror_list([first, second | _tail] = list) do
     list ++ [second, first]
   end
+
+  def filter_odd_from_grid(%Identicon.Image{grid: grid} = img) do
+    grid_filtered =
+      Enum.filter(grid, fn {num, _index} ->
+        rem(num, 2) == 0
+      end)
+
+    %Identicon.Image{img | grid: grid_filtered}
+  end
 end
