@@ -79,9 +79,14 @@ defmodule Identicon do
           [149, 159, 118, 159, 149]
         ]
   """
-  def build_grid(%Identicon.Image{hex_values: hex}) do
-    Enum.chunk_every(hex, 3, 3, :discard)
-    |> Enum.map(&mirror_list/1)
+  def build_grid(%Identicon.Image{hex_values: hex} = img) do
+    grid =
+      Enum.chunk_every(hex, 3, 3, :discard)
+      |> Enum.map(&mirror_list/1)
+      |> List.flatten()
+      |> Enum.with_index()
+
+    %Identicon.Image{img | grid: grid}
   end
 
   @doc """
