@@ -113,4 +113,42 @@ defmodule Identicon do
 
     %Identicon.Image{img | grid: grid_filtered}
   end
+
+  @doc """
+    0 = {0 * 50, 0}
+    1 = {1 * 50, 0}
+    2 = {2 * 50, 0}
+    3 = {3 * 50, 0}
+    4 = {4 * 50, 0}
+
+    5 = {0 * 50, 50}
+    6 = {1 * 50, 50}
+    ...
+    9 = {200, 50}
+
+    10 = {0, 50 * 2}
+
+    ## Examples
+        iex> img = Identicon.hash_str("capivara@proton.com") |> Identicon.build_grid
+        iex> %{grid: grid} = Identicon.filter_odd_from_grid(img)
+        iex> grid
+        [{138, 5}, {138, 9}, {180, 11}, {180, 13}, {118, 22}]
+  """
+  def build_pixel_map(%Identicon.Image{grid: grid} = img) do
+    pixel_map =
+      Enum.map(grid, fn {_hex_code, idx} ->
+        side_len = 50
+
+        # Calculating the X, Y coordinates for the top-left corner of the
+        # rectangle
+        x_coord = rem(idx, 5) * side_len
+        y_coord = div(idx, 5) * side_len
+
+        # X, Y coordinates for the bottom-right corner of the rectangle are
+        # the same for the top-left + side_len
+        {{x_coord, y_coord}, {x_coord + side_len, y_coord + side_len}}
+      end)
+
+    %Identicon.Image{img | pixel_map: pixel_map}
+  end
 end
