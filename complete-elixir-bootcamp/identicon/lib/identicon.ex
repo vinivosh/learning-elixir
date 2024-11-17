@@ -113,18 +113,7 @@ defmodule Identicon do
   end
 
   @doc """
-    0 = {0 * 50, 0}
-    1 = {1 * 50, 0}
-    2 = {2 * 50, 0}
-    3 = {3 * 50, 0}
-    4 = {4 * 50, 0}
-
-    5 = {0 * 50, 50}
-    6 = {1 * 50, 50}
-    ...
-    9 = {200, 50}
-
-    10 = {0, 50 * 2}
+    TODO: write docs here
 
     ## Examples
         iex> img = Identicon.hash_str("capivara@proton.com") |> Identicon.build_grid
@@ -148,5 +137,26 @@ defmodule Identicon do
       end)
 
     %Identicon.Image{img | pixel_map: pixel_map}
+  end
+
+  @doc """
+    TODO: write docs here
+
+    ## Examples
+        iex> img = Identicon.hash_str("capivara@proton.com") |> Identicon.build_grid
+        iex> %{grid: grid} = Identicon.filter_odd_from_grid(img)
+        iex> grid
+        [{138, 5}, {138, 9}, {180, 11}, {180, 13}, {118, 22}]
+  """
+  def draw_img(%Identicon.Image{color: color, pixel_map: pixel_map}) do
+    side_len = 50
+    image = :egd.create(side_len * 5, side_len * 5)
+    fill_color = :egd.color(color)
+
+    Enum.each(pixel_map, fn {top_left, bottom_right} ->
+      :egd.filledRectangle(image, top_left, bottom_right, fill_color)
+    end)
+
+    :egd.render(image)
   end
 end
