@@ -14,11 +14,15 @@ defmodule Identicon do
 
   """
   def generate(input) do
-    hash_str(input)
-    |> pick_color()
-    |> build_grid()
-    |> filter_odd_from_grid()
-    |> build_pixel_map()
+    image =
+      hash_str(input)
+      |> pick_color()
+      |> build_grid()
+      |> filter_odd_from_grid()
+      |> build_pixel_map()
+      |> draw_img()
+
+    File.write("identicon.png", image)
   end
 
   @doc """
