@@ -30,14 +30,30 @@ defmodule Discuss.Mixfile do
   #
   # Type `mix help deps` for examples and options.
   defp deps do
-    [{:phoenix, "~> 1.2.5"},
-     {:phoenix_pubsub, "~> 1.0"},
-     {:phoenix_ecto, "~> 3.0"},
-     {:postgrex, ">= 0.0.0"},
-     {:phoenix_html, "~> 2.6"},
-     {:phoenix_live_reload, "~> 1.0", only: :dev},
-     {:gettext, "~> 0.11"},
-     {:cowboy, "~> 1.0"}]
+    [
+      # Docs and linter
+      {:ex_doc, "~> 0.18.0", only: :dev, runtime: false},
+      {:credo, "~> 1.0.0", only: [:dev, :test], runtime: false},
+
+      # Phoenix
+      {:phoenix, "~> 1.2.5"},
+      {:phoenix_pubsub, "~> 1.0"},
+      {:phoenix_ecto, "~> 3.0"},
+      {:postgrex, ">= 0.0.0"},
+      {:phoenix_html, "~> 2.6"},
+      {:phoenix_live_reload, "~> 1.0", only: :dev},
+      {:gettext, "~> 0.10.0", override: true}, # Downgraded from ~> 0.11
+      {:cowboy, "~> 1.0"},
+
+      # Downgraded packages so the project works properly in Elixir 1.6.x
+      {:bunt, "~> 0.2.1", runtime: false},
+      {:earmark, "~> 1.2.0", runtime: false},
+      {:jason, "~> 1.4.4", runtime: false},
+      {:makeup, "~> 1.0.5", runtime: false},
+      {:makeup_elixir, "~> 0.14.1", runtime: false},
+      {:nimble_parsec, "~> 0.5.0", runtime: false},
+      {:expo, "~> 0.3.0", runtime: false, override: true},
+    ]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.
