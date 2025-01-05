@@ -4,7 +4,8 @@ defmodule Discuss.TopicController do
   alias Discuss.Topic
 
   def index(conn, _params) do
-    nil
+    all_topics = Repo.all(Topic)
+    IO.puts("All topics:\n\n#{inspect(all_topics, pretty: true)}\n")
   end
 
   def new(conn, _params) do
