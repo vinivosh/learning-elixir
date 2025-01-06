@@ -1,5 +1,9 @@
 /* This file is for your main application css. */
 
+h2 {
+    font-size: 2.5em !important;
+}
+
 .help-block {
     color: red;
     text-transform: capitalize;
