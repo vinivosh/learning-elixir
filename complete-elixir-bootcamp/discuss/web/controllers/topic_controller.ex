@@ -40,4 +40,19 @@ defmodule Discuss.TopicController do
 
     render(conn, "edit.html", changeset: changeset, topic: topic)
   end
+
+  def update(conn, %{"id" => topic_id, "topic" => topic_updated}) do
+    # credo:disable-for-next-line
+    changeset = Repo.get(Topic, topic_id) |> Topic.changeset(topic_updated)
+
+    case Repo.update(changeset) do
+      {:ok, _topic} ->
+        conn
+        |> put_flash(:info, "Topic updated!")
+        |> redirect(to: topic_path(conn, :index))
+
+      {:error, changeset} ->
+        render(conn, "edit.html", changeset: changeset)
+    end
+  end
 end
