@@ -11,9 +11,9 @@ config :discuss, Discuss.Endpoint,
   debug_errors: true,
   code_reloader: true,
   check_origin: false,
-  watchers: [node: ["node_modules/brunch/bin/brunch", "watch", "--stdin",
-                    cd: Path.expand("../", __DIR__)]]
-
+  watchers: [
+    node: ["node_modules/brunch/bin/brunch", "watch", "--stdin", cd: Path.expand("../", __DIR__)]
+  ]
 
 # Watch static and templates for browser reloading.
 config :discuss, Discuss.Endpoint,
@@ -38,10 +38,14 @@ env_vars = System.get_env()
 # Configure your database
 config :discuss, Discuss.Repo,
   adapter: Ecto.Adapters.Postgres,
-
   hostname: Map.get(env_vars, "POSTGRES_SERVER", "localhost"),
   port: Map.get(env_vars, "POSTGRES_PORT", "5432"),
   database: Map.get(env_vars, "POSTGRES_DB", "stephen-grider-discuss"),
   username: Map.get(env_vars, "POSTGRES_USER", "postgres"),
-  password: Map.get(env_vars, "POSTGRES_PASSWORD", ""),
+  password: Map.get(env_vars, "POSTGRES_PASSWORD"),
   pool_size: 10
+
+# Überauth GitHub config
+config :ueberauth, Ueberauth.Strategy.Github.Oauth,
+  client_id: Map.get(env_vars, "GH_OAUTH_CLIENT_ID"),
+  client_secret: Map.get(env_vars, "GH_OAUTH_CLIENT_SECRET")
