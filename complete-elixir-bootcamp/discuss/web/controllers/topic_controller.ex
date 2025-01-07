@@ -5,8 +5,6 @@ defmodule Discuss.TopicController do
 
   def index(conn, _params) do
     topics = Repo.all(Topic)
-    IO.puts("All topics:\n\n#{inspect(topics, pretty: true)}\n")
-
     render(conn, "index.html", topics: topics)
   end
 
@@ -17,8 +15,6 @@ defmodule Discuss.TopicController do
   end
 
   def create(conn, %{"topic" => topic}) do
-    IO.puts("Topic:\n\n#{inspect(topic, pretty: true)}\n")
-
     changeset = Topic.changeset(%Topic{}, topic)
 
     case Repo.insert(changeset) do
