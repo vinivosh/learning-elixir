@@ -32,20 +32,3 @@ config :logger, :console, format: "[$level] $message\n"
 # Set a higher stacktrace during development. Avoid configuring such
 # in production as building large stacktraces may be expensive.
 config :phoenix, :stacktrace_depth, 20
-
-env_vars = System.get_env()
-
-# Configure your database
-config :discuss, Discuss.Repo,
-  adapter: Ecto.Adapters.Postgres,
-  hostname: Map.get(env_vars, "POSTGRES_SERVER", "localhost"),
-  port: Map.get(env_vars, "POSTGRES_PORT", "5432"),
-  database: Map.get(env_vars, "POSTGRES_DB", "stephen-grider-discuss"),
-  username: Map.get(env_vars, "POSTGRES_USER", "postgres"),
-  password: Map.get(env_vars, "POSTGRES_PASSWORD"),
-  pool_size: 10
-
-# Überauth GitHub config
-config :ueberauth, Ueberauth.Strategy.Github.Oauth,
-  client_id: Map.get(env_vars, "GH_OAUTH_CLIENT_ID"),
-  client_secret: Map.get(env_vars, "GH_OAUTH_CLIENT_SECRET")
