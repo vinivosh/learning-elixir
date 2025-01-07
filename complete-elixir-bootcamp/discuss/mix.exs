@@ -61,8 +61,8 @@ defmodule Discuss.Mixfile do
       {:cowboy, "~> 1.0"},
 
       # Authentication
-      {:ueberauth, "~> 0.3"},
-      {:ueberauth_github, "~> 0.4"},
+      {:ueberauth, "~> 0.4.0"},
+      {:ueberauth_github, "~> 0.4.0"},
 
       # Downgraded packages so the project works properly in Elixir 1.6.x
       {:bunt, "~> 0.2.1", runtime: false},
