@@ -6,11 +6,8 @@ defmodule Discuss.AuthController do
 
   def callback(
         %{assigns: %{ueberauth_auth: auth}} = conn,
-        %{"code" => code, "provider" => provider} = params
+        %{"code" => _code, "provider" => provider} = _params
       ) do
-    IO.puts("\n`auth` struct:\n\n#{inspect(auth, pretty: true)}")
-    IO.puts("\n`params` struct:\n\n#{inspect(params, pretty: true)}")
-
     user_params = %{
       token: auth.credentials.token,
       email: auth.info.email,
@@ -18,7 +15,24 @@ defmodule Discuss.AuthController do
     }
 
     changeset = User.changeset(%User{}, user_params)
-    upsert_user(changeset)
+    sign_in(conn, changeset)
+  end
+
+  defp sign_in(conn, changeset) do
+    case upsert_user(changeset) do
+      {:ok, user} ->
+        conn
+        |> put_flash(:info, "Welcome back!")
+        |> put_session(:user_id, user.id)
+        |> redirect(to: topic_path(conn, :index))
+
+      {:error, reason} ->
+        IO.puts("Something went wrong when attempting sign in! Reason: #{inspect(reason)}")
+
+        conn
+        |> put_flash(:error, "Error signing in")
+        |> redirect(to: topic_path(conn, :index))
+    end
   end
 
   # Returns the user with the e-mail specified in the changeset, if found, or
