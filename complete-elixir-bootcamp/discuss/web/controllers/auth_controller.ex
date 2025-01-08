@@ -18,6 +18,7 @@ defmodule Discuss.AuthController do
     }
 
     changeset = User.changeset(%User{}, user_params)
+    upsert_user(changeset)
   end
 
   # Returns the user with the e-mail specified in the changeset, if found, or
@@ -25,8 +26,7 @@ defmodule Discuss.AuthController do
   defp upsert_user(changeset) do
     case Repo.get_by(User, email: changeset.changes.email) do
       nil ->
-        # TODO: Actually create the new user here
-        nil
+        Repo.insert(changeset)
 
       user ->
         {:ok, user}
