@@ -35,6 +35,16 @@ defmodule Discuss.AuthController do
     end
   end
 
+  def sign_out(conn, _params) do
+    # `configure_session(drop: true)` deletes EVERYTHING stored in the session!
+    # This is safer than just setting `conn.assigns.user` to `nil`, because it
+    # makes sure that any other data on the user we start saving to the session
+    # in the future will also get deleted when a user signs out. Future proof!
+    conn
+    |> configure_session(drop: true)
+    |> redirect(to: topic_path(conn, :index))
+  end
+
   # Returns the user with the e-mail specified in the changeset, if found, or
   # creates and returns a new user if not
   defp upsert_user(changeset) do
