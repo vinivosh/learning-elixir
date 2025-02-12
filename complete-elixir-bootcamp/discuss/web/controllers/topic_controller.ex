@@ -8,6 +8,8 @@ defmodule Discuss.TopicController do
     when action in [:new, :create, :edit, :update, :delete]
   )
 
+  plug(:check_topic_ownership when action in [:edit, :update, :delete])
+
   def index(conn, _params) do
     topics = Repo.all(Topic)
     render(conn, "index.html", topics: topics)
@@ -67,5 +69,35 @@ defmodule Discuss.TopicController do
     conn
     |> put_flash(:info, "Topic deleted")
     |> redirect(to: topic_path(conn, :index))
+  end
+
+  @doc """
+  A function plug for checking if the current user actually owns the topic being
+  edited/deleted.
+
+  Function plugs are very useful when the plug will never be used across
+  multiple modules!
+  """
+  def check_topic_ownership(conn, _params) do
+    user_id = conn.assigns.user.id
+    %{params: %{"id" => topic_id}} = conn
+    topic = Repo.get(Topic, topic_id)
+
+    case topic do
+      %Topic{user_id: ^user_id} ->
+        conn
+
+      %Topic{user_id: _} ->
+        conn
+        |> put_flash(:error, "You cannot edit or delete topics that are not owned by you.")
+        |> redirect(to: topic_path(conn, :index))
+        |> halt()
+
+      nil ->
+        conn
+        |> put_flash(:error, "Topic with ID #{topic_id} does not exist.")
+        |> redirect(to: topic_path(conn, :index))
+        |> halt()
+    end
   end
 end
