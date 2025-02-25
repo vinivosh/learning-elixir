@@ -5,9 +5,15 @@ defmodule Discuss.CommentChannel do
 
   use Discuss.Web, :channel
 
-  def join() do
+  def join(name, _params, socket) do
+    IO.puts("########################################")
+    IO.puts("Name:")
+    IO.puts(name)
+    IO.puts("########################################")
+
+    {:ok, %{}, socket}
   end
 
-  def handle_in do
+  def handle_in() do
   end
 end

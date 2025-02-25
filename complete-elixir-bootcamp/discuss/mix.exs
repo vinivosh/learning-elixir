@@ -56,7 +56,7 @@ defmodule Discuss.Mixfile do
       {:postgrex, ">= 0.0.0"},
       {:phoenix_html, "~> 2.6"},
       {:phoenix_live_reload, "~> 1.0", only: :dev},
-      # Downgraded from ~> 0.11
+      # Downgraded from ~> 0.11 to 0.10.0
       {:gettext, "~> 0.10.0", override: true},
       {:cowboy, "~> 1.0"},
 
