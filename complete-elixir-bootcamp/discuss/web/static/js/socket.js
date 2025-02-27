@@ -4,13 +4,11 @@ let socket = new Socket("/socket", {params: {token: window.userToken}})
 
 socket.connect()
 
-let channel = socket.channel("comment:1", {})
-channel.join()
-  .receive("ok", resp => { console.log("Joined successfully", resp) })
-  .receive("error", resp => { console.log("Unable to join", resp) })
+const createSocket = (topicID) => {
+  let channel = socket.channel(`comment:${topicID}`, {})
+  channel.join()
+    .receive("ok", resp => { console.log("Joined successfully", resp) })
+    .receive("error", resp => { console.log("Unable to join", resp) })
+}
 
-document.querySelector('button').addEventListener('click', () => {
-  channel.push('comment:hello', { hi: 'there!' })
-})
-
-export default socket
+window.createSocket = createSocket
