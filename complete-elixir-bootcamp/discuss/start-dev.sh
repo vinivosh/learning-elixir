@@ -4,6 +4,7 @@ echo "[Discuss] Starting dev environment..." && \
   sudo docker compose up -d --build && \
   sleep 3 && \
   mix deps.get && \
+  mix compile && \
   mix ecto.create && \
   mix ecto.migrate && \
   iex -S mix phoenix.server
