@@ -5,8 +5,7 @@ defmodule Discuss.CommentChannel do
 
   use Discuss.Web, :channel
 
-  alias Discuss.Topic
-  alias Discuss.Comment
+  alias Discuss.{Topic, Comment}
 
   def join("comment:" <> topic_id = name, _params, socket) do
     IO.puts("\n########################################")
@@ -15,9 +14,13 @@ defmodule Discuss.CommentChannel do
     IO.puts("########################################")
 
     topic_id = String.to_integer(topic_id)
-    topic = Repo.get(Topic, topic_id)
 
-    {:ok, %{}, assign(socket, :topic, topic)}
+    topic =
+      Topic
+      |> Repo.get(topic_id)
+      |> Repo.preload(:comment)
+
+    {:ok, %{comments: topic.comment}, assign(socket, :topic, topic)}
   end
 
   def handle_in(name, %{"content" => content} = msg, socket) do
