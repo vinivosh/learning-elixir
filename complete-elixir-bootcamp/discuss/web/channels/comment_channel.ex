@@ -6,25 +6,41 @@ defmodule Discuss.CommentChannel do
   use Discuss.Web, :channel
 
   alias Discuss.Topic
+  alias Discuss.Comment
 
   def join("comment:" <> topic_id = name, _params, socket) do
-    IO.puts("############################################################")
+    IO.puts("\n########################################")
     IO.puts("Websockets are working! Channel was joined with success.")
     IO.puts("Name:\n#{inspect(name, limit: :infinity)}")
-    IO.puts("############################################################")
+    IO.puts("########################################")
 
     topic_id = String.to_integer(topic_id)
-    _topic = Repo.get(Topic, topic_id)
+    topic = Repo.get(Topic, topic_id)
 
-    {:ok, %{}, socket}
+    {:ok, %{}, assign(socket, :topic, topic)}
   end
 
-  def handle_in(name, %{"content" => _content} = msg, socket) do
-    IO.puts("########################################")
+  def handle_in(name, %{"content" => content} = msg, socket) do
+    IO.puts("\n########################################")
     IO.puts("Websockets are working! Message was received with success.")
     IO.puts("Name: #{inspect(name, limit: :infinity)}")
     IO.puts("Message: #{inspect(msg, limit: :infinity)}")
     IO.puts("########################################")
+
+    topic = socket.assigns.topic
+
+    changeset =
+      topic
+      |> build_assoc(:comment)
+      |> Comment.changeset(%{content: content})
+
+    case Repo.insert(changeset) do
+      {:ok, comment} ->
+        IO.puts("Comment inserted into the DB:\n#{inspect(comment, limit: :infinity)}")
+
+      {:error, _reason} ->
+        {:reply, {:error, %{errors: changeset}}, socket}
+    end
 
     {:reply, :ok, socket}
   end
