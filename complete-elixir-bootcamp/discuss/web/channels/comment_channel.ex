@@ -31,10 +31,11 @@ defmodule Discuss.CommentChannel do
     IO.puts("########################################")
 
     topic = socket.assigns.topic
+    user_id = socket.assigns.user_id
 
     changeset =
       topic
-      |> build_assoc(:comment)
+      |> build_assoc(:comment, user_id: user_id)
       |> Comment.changeset(%{content: content})
 
     case Repo.insert(changeset) do
