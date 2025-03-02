@@ -18,18 +18,29 @@ const createSocket = (topicID) => {
       const content = document.querySelector('textarea').value
       channel.push('commend:add', { content: content })
     })
+
+    channel.on(`comment:${topicID}:new`, renderNewComment)
 }
 
 function renderComments(comments) {
   const renderedComments = comments.map(comment => {
-    return `
-      <li class="collection-item">
-        ${comment.content}
-      </li>
-    `
+    return genCommentHTML(comment)
   })
 
   document.querySelector(".collection").innerHTML = renderedComments.join('')
+}
+
+function renderNewComment(comment) {
+  const renderedComment = genCommentHTML(comment)
+  document.querySelector(".collection").innerHTML += renderedComment
+}
+
+function genCommentHTML(comment) {
+  return `
+    <li class="collection-item">
+      ${comment.content}
+    </li>
+  `
 }
 
 window.createSocket = createSocket
