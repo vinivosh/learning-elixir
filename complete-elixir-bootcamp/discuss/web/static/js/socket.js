@@ -30,8 +30,8 @@ function renderComments(comments) {
   document.querySelector(".collection").innerHTML = renderedComments.join('')
 }
 
-function renderNewComment(comment) {
-  const renderedComment = genCommentHTML(comment)
+function renderNewComment(event) {
+  const renderedComment = genCommentHTML(event.comment)
   document.querySelector(".collection").innerHTML += renderedComment
 }
 
