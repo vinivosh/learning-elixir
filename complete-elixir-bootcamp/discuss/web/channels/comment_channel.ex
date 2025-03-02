@@ -41,6 +41,14 @@ defmodule Discuss.CommentChannel do
       {:ok, comment} ->
         IO.puts("Comment inserted into the DB:\n#{inspect(comment, limit: :infinity)}")
 
+        broadcast!(
+          socket,
+          "comment:#{socket.assigns.topic.id}:new",
+          %{comment: comment}
+        )
+
+        {:reply, :ok, socket}
+
       {:error, _reason} ->
         {:reply, {:error, %{errors: changeset}}, socket}
     end
