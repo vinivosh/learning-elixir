@@ -5,7 +5,7 @@ defmodule Discuss.Comment do
   use Discuss.Web, :model
 
   # Tells what to include when converting a Comment into JSON
-  @derive {Poison.Encoder, only: [:content]}
+  @derive {Poison.Encoder, only: [:content, :user]}
 
   schema "comment" do
     field(:content, :string)
