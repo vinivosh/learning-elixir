@@ -31,7 +31,11 @@ defmodule Discuss.CommentChannel do
     IO.puts("########################################")
 
     topic = socket.assigns.topic
-    user_id = socket.assigns.user_id
+    user_id = Map.get(socket.assigns, "user_id", nil)
+
+    if is_integer(user_id) and user_id <= 0 do
+      ^user_id = nil
+    end
 
     changeset =
       topic
