@@ -4,14 +4,6 @@ Just a simple repository with exercises and projects I did in a journey to maste
 
 
 
-# Joy of Elixir
-
-This section contains all exercises I did when reading the [Joy of Elixir](https://joyofelixir.com/) book.
-
-It's a book for **absolute beginners**, but I still decided to start by reading it out of curiosity. Never had seen someone attempt to teach a functional programming language such as Elixir to a total beginner.
-
-
-
 # The Complete Elixir and Phoenix Bootcamp
 
 This section contains all project exercises I did for [The Complete Elixir and Phoenix Bootcamp](https://www.udemy.com/course/the-complete-elixir-and-phoenix-bootcamp-and-tutorial) Udemy course, by [Stephen Grider](https://github.com/stephengrider).
@@ -26,3 +18,11 @@ Features include:
 ![Logging in and posting comments](complete-elixir-bootcamp/Discuss-01.webp)
 
 ![Showcasing use of websockets for live loading comments](complete-elixir-bootcamp/Discuss-02.webp)
+
+
+
+# Joy of Elixir
+
+This section contains all exercises I did when reading the [Joy of Elixir](https://joyofelixir.com/) book.
+
+It's a book for **absolute beginners**, but I still decided to start by reading it out of curiosity. Never had seen someone attempt to teach a functional programming language such as Elixir to a total beginner.
