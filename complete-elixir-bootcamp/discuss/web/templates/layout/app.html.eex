@@ -20,6 +20,8 @@
     <script>
       <%= if @conn.assigns.user do %>
         window.userToken = "<%= Phoenix.Token.sign(Discuss.Endpoint, "key", @conn.assigns.user.id) %>"
+      <% else %>
+        window.userToken = "<%= Phoenix.Token.sign(Discuss.Endpoint, "key", 0) %>"
       <% end %>
     </script>
   </head>
