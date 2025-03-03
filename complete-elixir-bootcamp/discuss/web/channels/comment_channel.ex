@@ -40,6 +40,7 @@ defmodule Discuss.CommentChannel do
 
     case Repo.insert(changeset) do
       {:ok, comment} ->
+        comment = Repo.preload(comment, :user)
         IO.puts("Comment inserted into the DB:\n#{inspect(comment, limit: :infinity)}")
 
         broadcast!(

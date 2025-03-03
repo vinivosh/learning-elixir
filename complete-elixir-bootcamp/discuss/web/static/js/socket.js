@@ -19,7 +19,7 @@ const createSocket = (topicID) => {
       channel.push('commend:add', { content: content })
     })
 
-    channel.on(`comment:${topicID}:new`, renderNewComment)
+  channel.on(`comment:${topicID}:new`, renderNewComment)
 }
 
 function renderComments(comments) {
