@@ -31,11 +31,17 @@ defmodule Discuss.CommentChannel do
     IO.puts("########################################")
 
     topic = socket.assigns.topic
-    user_id = Map.get(socket.assigns, "user_id", nil)
+    user_id = Map.get(socket.assigns, :user_id, nil)
+    IO.puts("user_id as it came in: #{inspect(user_id)}")
 
-    if is_integer(user_id) and user_id <= 0 do
-      ^user_id = nil
-    end
+    user_id =
+      if is_integer(user_id) and user_id <= 0 do
+        nil
+      else
+        user_id
+      end
+
+    IO.puts("user_id after treatment: #{inspect(user_id)}")
 
     changeset =
       topic
