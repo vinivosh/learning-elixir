@@ -4,11 +4,11 @@ Just a simple repository with exercises and projects I did in a journey to maste
 
 
 
-# The Complete Elixir and Phoenix Bootcamp
+# [The Complete Elixir and Phoenix Bootcamp](complete-elixir-bootcamp/)
 
 This section contains all project exercises I did for [The Complete Elixir and Phoenix Bootcamp](https://www.udemy.com/course/the-complete-elixir-and-phoenix-bootcamp-and-tutorial) Udemy course, by [Stephen Grider](https://github.com/stephengrider).
 
-The main "attraction" is the **Discuss** project, which is a webforum-like application for discussing topics by posting comments.
+The main "attraction" is the [**Discuss**](complete-elixir-bootcamp/discuss/) project, which is a webforum-like application for discussing topics by posting comments.
 
 Features include:
 - Storing data in a Postgres DB using Ecto;
@@ -21,7 +21,7 @@ Features include:
 
 
 
-# Joy of Elixir
+# [Joy of Elixir](joy-of-elixir/)
 
 This section contains all exercises I did when reading the [Joy of Elixir](https://joyofelixir.com/) book.
 
